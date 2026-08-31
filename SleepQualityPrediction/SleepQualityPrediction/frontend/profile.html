@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
@@ -148,10 +148,10 @@ h1{
 <body>
 
 <div class="container">
-  <a href="dashboard" class="back-btn">← Back to Dashboard</a>
+  <a href="dashboard" class="back-btn">â† Back to Dashboard</a>
   
   <div class="header">
-    <h1>👤 My Profile</h1>
+    <h1>ðŸ‘¤ My Profile</h1>
     <p>Your sleep analysis account information</p>
   </div>
 
@@ -186,7 +186,7 @@ h1{
     </div>
 
     <div class="profile-card">
-      <h3>📊 Account Statistics</h3>
+      <h3>ðŸ“Š Account Statistics</h3>
       <div class="stats-grid">
         <div class="stat-card">
           <div class="stat-number" id="memberSince">--</div>
@@ -224,7 +224,7 @@ function loadProfile() {
     return;
   }
 
-  fetch('http://127.0.0.1:5000/profile', {
+  fetch('/profile', {
     method: 'GET',
     headers: {
       'Authorization': `Bearer ${token}`

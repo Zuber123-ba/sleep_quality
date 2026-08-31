@@ -1,4 +1,4 @@
-// -----------------------------
+﻿// -----------------------------
 // Elements
 // -----------------------------
 const uploadBtn = document.getElementById("uploadBtn");
@@ -10,7 +10,7 @@ const sleepScoreEl = document.getElementById("sleepScore");
 let barChart, pieChart, lineChart;
 
 // -----------------------------
-// Convert prediction number → Label + Badge
+// Convert prediction number â†’ Label + Badge
 // -----------------------------
 function getPredictionBadge(value) {
   if (value === 0 || value === "0") return `<span class="badge bad">Bad</span>`;
@@ -56,7 +56,7 @@ function renderSleepScore(data) {
 
   const avgScore = data.reduce((sum, row) => sum + row.predicted_sleep_quality, 0) / data.length;
   const starsCount = Math.round(avgScore + 1); // simple mapping: 0->1, 1->2, 2->3 stars
-  sleepScoreEl.innerHTML = "Sleep Score: " + "⭐".repeat(starsCount) + "☆".repeat(5 - starsCount);
+  sleepScoreEl.innerHTML = "Sleep Score: " + "â­".repeat(starsCount) + "â˜†".repeat(5 - starsCount);
 }
 
 // -----------------------------
@@ -148,7 +148,7 @@ uploadBtn.addEventListener("click", async () => {
   output.innerHTML = "<p>Loading results...</p>";
 
   try {
-    const res = await fetch("http://127.0.0.1:8000/predict_csv", { method: "POST", body: form });
+    const res = await fetch("/predict_csv", { method: "POST", body: form });
     if (!res.ok) {
       let errData = {};
       try { errData = await res.json(); } catch { errData.detail = await res.text(); }
@@ -171,3 +171,5 @@ uploadBtn.addEventListener("click", async () => {
     predictionResult.innerHTML = `<p style="color:red">Request failed: ${err.message}</p>`;
   }
 });
+
+

@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
@@ -764,7 +764,7 @@ function checkPasswordStrength(password) {
   } else if (score < 4) {
     return { text: 'Medium strength password', class: 'strength-medium' };
   } else {
-    return { text: 'Strong password ✓', class: 'strength-strong' };
+    return { text: 'Strong password âœ“', class: 'strength-strong' };
   }
 }
 
@@ -850,7 +850,7 @@ registerForm.addEventListener('submit', async (e) => {
   hideAlerts();
 
   try {
-    const response = await fetch('http://127.0.0.1:5000/register', {
+    const response = await fetch('/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

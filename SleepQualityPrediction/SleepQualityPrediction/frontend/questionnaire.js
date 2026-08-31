@@ -1,4 +1,4 @@
-const submitBtn = document.getElementById("submitBtn") || document.querySelector("button");
+﻿const submitBtn = document.getElementById("submitBtn") || document.querySelector("button");
 const resultEl = document.getElementById("result");
 const adviceEl = document.getElementById("advice") || resultEl;
 
@@ -14,7 +14,7 @@ submitBtn.addEventListener("click", () => {
     screen_time: Number(document.getElementById("screen_time").value)
   };
 
-  // 🔴 Validation
+  // ðŸ”´ Validation
   if (
     !data.sleep_duration ||
     !data.stress_level ||
@@ -49,7 +49,7 @@ submitBtn.addEventListener("click", () => {
   else if (score >= 4) label = "Good";
   else label = "Bad";
 
-  // ✅ SHOW RESULT
+  // âœ… SHOW RESULT
   resultEl.innerHTML = `
     <div class="badge ${label.toLowerCase()}">${label}</div>
   `;
@@ -60,7 +60,7 @@ submitBtn.addEventListener("click", () => {
   const tips = [];
 
   if (data.sleep_duration < 6)
-    tips.push("Try to sleep at least 7–8 hours daily.");
+    tips.push("Try to sleep at least 7â€“8 hours daily.");
 
   if (data.stress_level > 6)
     tips.push("Practice meditation or deep breathing to reduce stress.");
@@ -72,7 +72,7 @@ submitBtn.addEventListener("click", () => {
     tips.push("Reduce screen usage at least 1 hour before bed.");
 
   if (label === "Bad")
-    tips.push("Your sleep quality is poor — improve your routine.");
+    tips.push("Your sleep quality is poor â€” improve your routine.");
 
   if (label === "Good")
     tips.push("Good sleep! Small improvements can make it even better.");
@@ -81,5 +81,6 @@ submitBtn.addEventListener("click", () => {
     tips.push("Excellent sleep habits! Keep it up.");
 
   adviceEl.style.display = "block";
-  adviceEl.innerHTML = tips.map(t => "• " + t).join("<br>");
+  adviceEl.innerHTML = tips.map(t => "â€¢ " + t).join("<br>");
 });
+

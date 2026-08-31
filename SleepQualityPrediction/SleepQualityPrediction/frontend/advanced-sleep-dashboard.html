@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -163,8 +163,8 @@ button:hover{
 <body>
 
 <div class="header">
-  <h1>🧠 AI Sleep & Stress Intelligence</h1>
-  <p>Personalized • Predictive • Preventive Health Analytics</p>
+  <h1>ðŸ§  AI Sleep & Stress Intelligence</h1>
+  <p>Personalized â€¢ Predictive â€¢ Preventive Health Analytics</p>
 </div>
 
 <div class="container">
@@ -173,7 +173,7 @@ button:hover{
 
 <!-- INPUT -->
 <div class="card input-card">
-  <h3>📝 Daily Sleep Input</h3>
+  <h3>ðŸ“ Daily Sleep Input</h3>
 
   <label>Sleep Hours</label>
   <input type="number" id="sleepHours" value="6">
@@ -192,41 +192,41 @@ button:hover{
 
 <!-- STRESS -->
 <div class="card">
-  <h3 style="text-align:center">🧠 Stress Index</h3>
+  <h3 style="text-align:center">ðŸ§  Stress Index</h3>
   <div class="circle" id="stressCircle" style="--value:0">
     <span id="stressIndex">--</span>
   </div>
-  <p style="text-align:center;opacity:.85">Auto-calculated (1–10)</p>
+  <p style="text-align:center;opacity:.85">Auto-calculated (1â€“10)</p>
 </div>
 
 <!-- METRICS -->
 <div class="card metric">
-  <h4>🔥 Burnout Risk</h4>
+  <h4>ðŸ”¥ Burnout Risk</h4>
   <p id="burnout">--</p>
 </div>
 
 <div class="card metric">
-  <h4>⚡ Tomorrow’s Energy</h4>
+  <h4>âš¡ Tomorrowâ€™s Energy</h4>
   <p id="energy">--</p>
 </div>
 
 <div class="card metric">
-  <h4>📉 Sleep Trend</h4>
+  <h4>ðŸ“‰ Sleep Trend</h4>
   <p id="habit">--</p>
 </div>
 
 <div class="card metric">
-  <h4>📵 Digital Detox</h4>
+  <h4>ðŸ“µ Digital Detox</h4>
   <p id="detoxText">-- /100</p>
 </div>
 
 <div class="card metric">
-  <h4>🌍 Social Jet Lag</h4>
+  <h4>ðŸŒ Social Jet Lag</h4>
   <p id="jetlag">--</p>
 </div>
 
 <div class="card metric">
-  <h4>🔄 Recovery</h4>
+  <h4>ðŸ”„ Recovery</h4>
   <p id="recovery">--</p>
 </div>
 
@@ -234,7 +234,7 @@ button:hover{
 
 <!-- EXPLANATION -->
 <div class="card explain" style="margin-top:25px">
-  <h3>🧠 How Stress Is Calculated</h3>
+  <h3>ðŸ§  How Stress Is Calculated</h3>
   <p id="stressExplain">
     Stress is estimated using sleep duration, screen exposure,
     sleep timing irregularity, and recent sleep trend.
@@ -243,7 +243,7 @@ button:hover{
 </div>
 
 <div class="action">
-  <button style="max-width:320px" onclick="smartAction()">🧠 Smart Health Action</button>
+  <button style="max-width:320px" onclick="smartAction()">ðŸ§  Smart Health Action</button>
   <p id="actionText"></p>
 </div>
 
@@ -280,26 +280,26 @@ function analyze(){
   stressIndex.innerText=stress;
   stressCircle.style.setProperty("--value",stress*10);
 
-  burnout.innerText = stress>=7 && sleep<6 ? "HIGH ⚠️" : "LOW ✅";
+  burnout.innerText = stress>=7 && sleep<6 ? "HIGH âš ï¸" : "LOW âœ…";
   burnout.className = stress>=7 ? "bad" : "good";
 
   energy.innerText =
-    sleep>=7?"😊 Energetic":sleep>=6?"😐 Normal":"😴 Tired";
+    sleep>=7?"ðŸ˜Š Energetic":sleep>=6?"ðŸ˜ Normal":"ðŸ˜´ Tired";
 
   habit.innerText =
     history.length>=3 &&
     history.at(-3).sleep>history.at(-2).sleep &&
     history.at(-2).sleep>history.at(-1).sleep
-    ?"Declining ⚠️":"Stable / Improving";
+    ?"Declining âš ï¸":"Stable / Improving";
 
   let detox=Math.max(0,100-screen*15);
   detoxText.innerText=detox+" /100";
 
   jetlag.innerText =
-    Math.abs(weekday-weekend)>=3?"Detected ⚠️":"Normal ✅";
+    Math.abs(weekday-weekend)>=3?"Detected âš ï¸":"Normal âœ…";
 
   recovery.innerText =
-    sleep>=8?"🟢 Good":sleep>=6?"🟡 Partial":"🔴 Poor";
+    sleep>=8?"ðŸŸ¢ Good":sleep>=6?"ðŸŸ¡ Partial":"ðŸ”´ Poor";
 
   stressExplain.innerText=
     `Stress Index is derived from:
@@ -311,13 +311,14 @@ function analyze(){
 
 function smartAction(){
   if(burnout.innerText.includes("HIGH"))
-    actionText.innerText="🛑 High stress detected. Reduce workload & prioritize sleep.";
+    actionText.innerText="ðŸ›‘ High stress detected. Reduce workload & prioritize sleep.";
   else if(jetlag.innerText.includes("Detected"))
-    actionText.innerText="⏰ Fix weekend sleep timing to stabilize body clock.";
+    actionText.innerText="â° Fix weekend sleep timing to stabilize body clock.";
   else
-    actionText.innerText="✅ You are doing well. Maintain this routine.";
+    actionText.innerText="âœ… You are doing well. Maintain this routine.";
 }
 </script>
 
 </body>
 </html>
+

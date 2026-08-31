@@ -1,8 +1,8 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>AI Sleep Intelligence – Smart Health Dashboard</title>
+<title>AI Sleep Intelligence â€“ Smart Health Dashboard</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -128,8 +128,8 @@ button:hover{
 <body>
 
 <div class="header">
-  <h1>🌙 AI Sleep Intelligence</h1>
-  <p>Simple • Smart • Personalized Sleep & Stress Guide</p>
+  <h1>ðŸŒ™ AI Sleep Intelligence</h1>
+  <p>Simple â€¢ Smart â€¢ Personalized Sleep & Stress Guide</p>
 </div>
 
 <div class="container">
@@ -138,12 +138,12 @@ button:hover{
 
 <!-- INPUT CARD -->
 <div class="card">
-  <h3>📝 Enter Your Daily Details</h3>
+  <h3>ðŸ“ Enter Your Daily Details</h3>
 
   <label>Sleep Hours</label>
   <input type="number" id="sleepHours" value="6">
 
-  <label>Stress Level (1–10)</label>
+  <label>Stress Level (1â€“10)</label>
   <input type="number" id="stressLevel" value="7">
 
   <label>Screen Time Before Bed (hrs)</label>
@@ -156,7 +156,7 @@ button:hover{
 
 <!-- STRESS -->
 <div class="card" style="text-align:center">
-  <h3>🧠 Stress Index</h3>
+  <h3>ðŸ§  Stress Index</h3>
   <div class="circle" id="stressCircle" style="--value:0">
     <span id="stressIndex">--</span>
   </div>
@@ -165,32 +165,32 @@ button:hover{
 
 <!-- METRICS -->
 <div class="card">
-  <h3>🔥 Burnout Risk</h3>
+  <h3>ðŸ”¥ Burnout Risk</h3>
   <p id="burnout">--</p>
 </div>
 
 <div class="card">
-  <h3>⚡ Tomorrow’s Energy</h3>
+  <h3>âš¡ Tomorrowâ€™s Energy</h3>
   <p id="energy">--</p>
 </div>
 
 <div class="card">
-  <h3>⏰ Best Sleep Window</h3>
+  <h3>â° Best Sleep Window</h3>
   <p id="sleepWindow">--</p>
 </div>
 
 <div class="card">
-  <h3>😴 Sleep Debt</h3>
+  <h3>ðŸ˜´ Sleep Debt</h3>
   <p id="sleepDebt">-- hrs</p>
 </div>
 
 <div class="card">
-  <h3>🌙 Night Readiness</h3>
+  <h3>ðŸŒ™ Night Readiness</h3>
   <p id="readiness">--%</p>
 </div>
 
 <div class="card">
-  <h3>🔁 Habit Score</h3>
+  <h3>ðŸ” Habit Score</h3>
   <p id="habitScore">-- /100</p>
 </div>
 
@@ -200,7 +200,7 @@ button:hover{
 <div class="grid" style="margin-top:24px">
 
 <div class="card">
-  <h3>✅ Why This System Is Useful</h3>
+  <h3>âœ… Why This System Is Useful</h3>
   <ul class="list">
     <li>Easy way to understand your sleep and stress</li>
     <li>Gives suggestions based on your daily routine</li>
@@ -211,7 +211,7 @@ button:hover{
 </div>
 
 <div class="card">
-  <h3>⚠️ Limitations (Be Honest)</h3>
+  <h3>âš ï¸ Limitations (Be Honest)</h3>
   <ul class="list">
     <li>Result depends on correct input from user</li>
     <li>Not a medical or hospital diagnosis</li>
@@ -224,10 +224,10 @@ button:hover{
 
 <!-- DIET -->
 <div class="card" style="margin-top:24px">
-  <h3>🥗 Simple Diet Plan for Good Sleep</h3>
+  <h3>ðŸ¥— Simple Diet Plan for Good Sleep</h3>
   <div class="grid">
     <div>
-      <h4 class="good">Evening (6–8 PM)</h4>
+      <h4 class="good">Evening (6â€“8 PM)</h4>
       <ul class="list">
         <li>Dal / Roti / Rice</li>
         <li>Green vegetables</li>
@@ -274,18 +274,18 @@ function analyze(){
     stress>=7?"High stress detected":"Stress level normal";
 
   // Burnout
-  burnout.innerText = (sleep<6 && stress>6) ? "HIGH ⚠️" : "LOW ✅";
+  burnout.innerText = (sleep<6 && stress>6) ? "HIGH âš ï¸" : "LOW âœ…";
   burnout.className = (sleep<6 && stress>6) ? "bad" : "good";
 
   // Energy
   energy.innerText =
-    sleep>=7?"😊 Energetic":sleep>=6?"😐 Normal":"😴 Tired";
+    sleep>=7?"ðŸ˜Š Energetic":sleep>=6?"ðŸ˜ Normal":"ðŸ˜´ Tired";
 
   // Sleep Window
   let base=23;
   if(stress>6) base-=0.5;
   if(screen>3) base-=0.5;
-  sleepWindow.innerText = fmt(base)+" – "+fmt(base+0.75);
+  sleepWindow.innerText = fmt(base)+" â€“ "+fmt(base+0.75);
 
   // Sleep Debt
   const ideal=7;
@@ -310,3 +310,4 @@ function fmt(h){
 
 </body>
 </html>
+

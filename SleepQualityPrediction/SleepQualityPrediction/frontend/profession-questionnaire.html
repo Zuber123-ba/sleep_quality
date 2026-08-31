@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
@@ -243,7 +243,7 @@ select.question-input{
 }
 
 .recommendation-list li:before{
-  content:"✓";
+  content:"âœ“";
   position:absolute;
   left:16px;
   color:#6bcf7f;
@@ -266,7 +266,7 @@ select.question-input{
 }
 
 .risk-factors li:before{
-  content:"⚠";
+  content:"âš ";
   position:absolute;
   left:16px;
   color:#ff6b6b;
@@ -327,10 +327,10 @@ select.question-input{
 <body>
 
 <div class="container">
-  <a href="dashboard" class="back-btn">← Back to Dashboard</a>
+  <a href="dashboard" class="back-btn">â† Back to Dashboard</a>
   
   <div class="header">
-    <h1>📝 Sleep Assessment</h1>
+    <h1>ðŸ“ Sleep Assessment</h1>
     <p>Personalized questionnaire based on your profession</p>
   </div>
 
@@ -340,7 +340,7 @@ select.question-input{
   <!-- Questionnaire Form -->
   <div id="questionnaireForm" style="display:none;">
     <div class="profession-info">
-      <h3>👤 <span id="professionTitle">Your Profession</span></h3>
+      <h3>ðŸ‘¤ <span id="professionTitle">Your Profession</span></h3>
       <p>This questionnaire is tailored specifically for your profession to provide the most relevant sleep insights.</p>
     </div>
 
@@ -362,7 +362,7 @@ select.question-input{
   <!-- Results Display -->
   <div id="resultsContainer" class="results-container">
     <div class="header">
-      <h1>🎯 Your Sleep Analysis Results</h1>
+      <h1>ðŸŽ¯ Your Sleep Analysis Results</h1>
       <p>Based on your responses and profession</p>
     </div>
 
@@ -377,17 +377,17 @@ select.question-input{
     </div>
 
     <div class="results-section">
-      <h3>💡 Personalized Recommendations</h3>
+      <h3>ðŸ’¡ Personalized Recommendations</h3>
       <ul class="recommendation-list" id="recommendationsList"></ul>
     </div>
 
     <div class="results-section" id="riskFactorsSection" style="display:none;">
-      <h3>⚠️ Risk Factors to Address</h3>
+      <h3>âš ï¸ Risk Factors to Address</h3>
       <ul class="risk-factors" id="riskFactorsList"></ul>
     </div>
 
     <div class="results-section">
-      <h3>🔍 Key Insights</h3>
+      <h3>ðŸ” Key Insights</h3>
       <div class="insights" id="insightsContent"></div>
     </div>
 
@@ -428,7 +428,7 @@ async function loadQuestionnaire() {
   const token = localStorage.getItem('userToken');
   
   try {
-    const response = await fetch('http://127.0.0.1:5000/questionnaire/questions', {
+    const response = await fetch('/questionnaire/questions', {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`
@@ -569,7 +569,7 @@ document.getElementById('sleepForm').addEventListener('submit', async (e) => {
   const token = localStorage.getItem('userToken');
   
   try {
-    const response = await fetch('http://127.0.0.1:5000/questionnaire/submit', {
+    const response = await fetch('/questionnaire/submit', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

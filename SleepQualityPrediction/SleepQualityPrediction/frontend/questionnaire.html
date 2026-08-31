@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
@@ -170,9 +170,9 @@ th{background:#764ba2;color:white}
 <body>
 
 <div class="container">
-<button class="theme-toggle" id="themeToggle">🌙</button>
+<button class="theme-toggle" id="themeToggle">ðŸŒ™</button>
 
-<h1>🛌 Sleep Quality Questionnaire</h1>
+<h1>ðŸ›Œ Sleep Quality Questionnaire</h1>
 <p>AI-powered sleep health analysis</p>
 
 <div class="progress">
@@ -183,7 +183,7 @@ th{background:#764ba2;color:white}
   <label>Sleep duration (hours)</label>
   <input type="number" id="sleep_duration">
 
-  <label>Stress level (1–10)</label>
+  <label>Stress level (1â€“10)</label>
   <input type="number" id="stress_level">
 
   <label>Caffeine intake (cups/day)</label>
@@ -192,10 +192,10 @@ th{background:#764ba2;color:white}
   <label>Screen time before bed (hours)</label>
   <input type="number" id="screen_time">
 
-  <label>Exercise level (1–10)</label>
+  <label>Exercise level (1â€“10)</label>
   <input type="number" id="exercise_level">
 
-  <label>Alcohol intake (1–10)</label>
+  <label>Alcohol intake (1â€“10)</label>
   <input type="number" id="alcohol_intake">
 
   <button onclick="predictSleep()">Predict Sleep Quality</button>
@@ -203,7 +203,7 @@ th{background:#764ba2;color:white}
 
 <div id="result" class="result-card"></div>
 
-<h2 style="margin-top:30px">📊 Sleep Progress</h2>
+<h2 style="margin-top:30px">ðŸ“Š Sleep Progress</h2>
 <div class="chart-card">
   <canvas id="historyChart"></canvas>
 </div>
@@ -230,7 +230,7 @@ function predictSleep() {
     screen_time: Number(document.getElementById("screen_time").value)
   };
 
-  // 🔴 Validation
+  // ðŸ”´ Validation
   if (
     !data.sleep_duration ||
     !data.stress_level ||
@@ -265,18 +265,18 @@ function predictSleep() {
   else if (score >= 4) label = "Good";
 
   const advice = {
-    Bad: "❌ Improve sleep: reduce stress, caffeine & screen time.",
-    Good: "✅ Good sleep! Maintain routine & consistency.",
-    Best: "🌟 Excellent sleep habits! Keep it up."
+    Bad: "âŒ Improve sleep: reduce stress, caffeine & screen time.",
+    Good: "âœ… Good sleep! Maintain routine & consistency.",
+    Best: "ðŸŒŸ Excellent sleep habits! Keep it up."
   };
 
   const stars = {
-    Bad: "⭐",
-    Good: "⭐⭐⭐",
-    Best: "⭐⭐⭐⭐⭐"
+    Bad: "â­",
+    Good: "â­â­â­",
+    Best: "â­â­â­â­â­"
   };
 
-  // ✅ SHOW RESULT
+  // âœ… SHOW RESULT
   resultEl.innerHTML = `
     <div class="badge ${label.toLowerCase()}">${label}</div>
     <div class="stars">${stars[label]}</div>
@@ -350,8 +350,9 @@ window.onload = renderHistory;
 </script>
 
 
-<!-- 🔽 KEEP YOUR EXISTING SCRIPT BELOW (prediction, chart, history) -->
+<!-- ðŸ”½ KEEP YOUR EXISTING SCRIPT BELOW (prediction, chart, history) -->
 <!-- PASTE YOUR PREVIOUS JS LOGIC HERE WITHOUT CHANGE -->
 
 </body>
 </html>
+

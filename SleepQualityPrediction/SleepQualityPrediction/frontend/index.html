@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
@@ -1230,7 +1230,7 @@ footer {
   </div>
 
   <footer>
-    <p>© 2025 SleepAI - Advanced Sleep Quality Prediction System</p>
+    <p>Â© 2025 SleepAI - Advanced Sleep Quality Prediction System</p>
     <p style="margin-top: 5px; font-size: 12px; opacity: 0.6;">
       Powered by Machine Learning & Computer Vision
     </p>
@@ -1265,7 +1265,7 @@ function checkAuth() {
   }
   
   // Verify token with server
-  fetch('http://127.0.0.1:5000/verify-token', {
+  fetch('/verify-token', {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${token}`
@@ -1296,7 +1296,7 @@ function checkAuth() {
 document.getElementById('logoutBtn').addEventListener('click', () => {
   const token = localStorage.getItem('userToken');
   
-  fetch('http://127.0.0.1:5000/logout', {
+  fetch('/logout', {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${token}`
@@ -1413,7 +1413,7 @@ uploadBtn.addEventListener("click", () => {
   const formData = new FormData();
   formData.append("file", csvFile.files[0]);
 
-  fetch("http://127.0.0.1:5000/predict_csv", {
+  fetch("/predict_csv", {
     method: "POST",
     headers: {
       'Authorization': `Bearer ${token}`
@@ -1736,3 +1736,4 @@ document.head.appendChild(style);
 
 </body>
 </html>
+

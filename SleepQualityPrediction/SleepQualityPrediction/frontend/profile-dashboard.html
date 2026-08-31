@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -131,7 +131,7 @@ button{
 <body>
 
 <div class="header">
-  <h1>👤 Sleep Profile Dashboard</h1>
+  <h1>ðŸ‘¤ Sleep Profile Dashboard</h1>
   <p>Smart personalized sleep health system</p>
 </div>
 
@@ -147,9 +147,9 @@ button{
     <h3>Select User Profile</h3>
     <select id="profile">
       <option value="">Choose profile</option>
-      <option value="student">🎓 Student</option>
-      <option value="working">💼 Working Professional</option>
-      <option value="athlete">🏃 Athlete</option>
+      <option value="student">ðŸŽ“ Student</option>
+      <option value="working">ðŸ’¼ Working Professional</option>
+      <option value="athlete">ðŸƒ Athlete</option>
     </select>
     <button onclick="saveProfile()">Save Profile</button>
   </div>
@@ -172,14 +172,14 @@ button{
     </div>
 
     <div class="card">
-      <h3>Sleep Streak 🔥</h3>
+      <h3>Sleep Streak ðŸ”¥</h3>
       <p id="streak">0 days</p>
     </div>
   </div>
 
   <!-- SCORE -->
   <div class="score-box">
-    <h3>💤 Sleep Health Score</h3>
+    <h3>ðŸ’¤ Sleep Health Score</h3>
     <div class="bar-bg">
       <div id="sleepScoreBar"></div>
     </div>
@@ -188,11 +188,11 @@ button{
 
   <!-- ADVICE -->
   <div class="recommendation" id="recommendationBox">
-    <h3>🧠 Personalized Advice</h3>
+    <h3>ðŸ§  Personalized Advice</h3>
     <p>Select a profile to see advice</p>
   </div>
 
-  <a class="back" href="index.html">⬅ Back to Main Dashboard</a>
+  <a class="back" href="index.html">â¬… Back to Main Dashboard</a>
 
 </div>
 
@@ -212,22 +212,22 @@ function loadDashboard(){
 
   const data={
     student:{
-      label:"🎓 Student",
-      sleep:"7–8 hrs",
+      label:"ðŸŽ“ Student",
+      sleep:"7â€“8 hrs",
       bedtime:"11:00 PM",
       score:75,
       advice:"Reduce screen time and avoid late-night study sessions."
     },
     working:{
-      label:"💼 Working Professional",
-      sleep:"6–7 hrs",
+      label:"ðŸ’¼ Working Professional",
+      sleep:"6â€“7 hrs",
       bedtime:"10:30 PM",
       score:65,
       advice:"Manage work stress and maintain a fixed sleep routine."
     },
     athlete:{
-      label:"🏃 Athlete",
-      sleep:"8–9 hrs",
+      label:"ðŸƒ Athlete",
+      sleep:"8â€“9 hrs",
       bedtime:"10:00 PM",
       score:85,
       advice:"Prioritize deep sleep for muscle recovery and performance."
@@ -241,14 +241,14 @@ function loadDashboard(){
   bedtime.innerText=d.bedtime;
   sleepScoreBar.style.width=d.score+"%";
   sleepScoreText.innerText=`Score: ${d.score} / 100`;
-  recommendationBox.innerHTML=`<h3>🧠 Personalized Advice</h3><p>${d.advice}</p>`;
+  recommendationBox.innerHTML=`<h3>ðŸ§  Personalized Advice</h3><p>${d.advice}</p>`;
 
   if(d.score>=70){
     streak++;
-    statusBanner.innerHTML="🌟 Good sleep health detected. Keep going!";
+    statusBanner.innerHTML="ðŸŒŸ Good sleep health detected. Keep going!";
   }else{
     streak=0;
-    statusBanner.innerHTML="⚠️ Poor sleep health. Improvements needed.";
+    statusBanner.innerHTML="âš ï¸ Poor sleep health. Improvements needed.";
   }
 
   streakEl=document.getElementById("streak");
@@ -261,3 +261,4 @@ window.onload=loadDashboard;
 
 </body>
 </html>
+
