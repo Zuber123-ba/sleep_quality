@@ -481,6 +481,187 @@ input:focus + .input-icon {
 .password-toggle:hover {
   color: var(--text-primary);
 }
+
+/* =====================================================
+   MOBILE-FIRST UI POLISH
+   ===================================================== */
+
+@media (max-width: 480px) {
+
+  html, body {
+    width: 100%;
+    max-width: 100%;
+    min-height: 100dvh;
+    overflow-x: hidden;
+  }
+
+  body {
+    padding: 12px;
+    align-items: flex-start;
+  }
+
+  .bg-elements {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .shape-1 {
+    width: 70px;
+    height: 70px;
+  }
+
+  .shape-2 {
+    width: 100px;
+    height: 100px;
+  }
+
+  .shape-3 {
+    width: 55px;
+    height: 55px;
+  }
+
+  .back-btn {
+    top: 12px;
+    left: 12px;
+    padding: 9px 12px;
+    font-size: 12px;
+    gap: 6px;
+    z-index: 20;
+  }
+
+  .auth-container {
+    width: 100%;
+    max-width: 390px;
+    margin: 58px auto 15px;
+    padding: 28px 18px 24px;
+    border-radius: 22px;
+  }
+
+  .auth-header {
+    margin-bottom: 24px;
+  }
+
+  .auth-icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-size: 23px;
+    line-height: 1.2;
+    margin-bottom: 9px;
+  }
+
+  .subtitle {
+    font-size: 13px;
+    line-height: 1.55;
+    margin-bottom: 24px;
+  }
+
+  .form-group {
+    margin-bottom: 18px;
+  }
+
+  .form-group label {
+    font-size: 13px;
+    margin-bottom: 7px;
+  }
+
+  input[type="email"],
+  input[type="password"] {
+    width: 100%;
+    min-height: 52px;
+    padding: 14px 48px 14px 44px;
+    font-size: 16px;
+    border-radius: 15px;
+  }
+
+  .input-wrapper i {
+    left: 15px;
+    font-size: 15px;
+  }
+
+  .password-toggle {
+    right: 8px;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn {
+    width: 100%;
+    min-height: 52px;
+    margin-top: 20px;
+    padding: 14px;
+    font-size: 15px;
+    border-radius: 15px;
+  }
+
+  .auth-links {
+    margin-top: 22px;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .auth-links p {
+    margin-bottom: 8px;
+  }
+
+  .alert {
+    padding: 12px 14px;
+    margin-bottom: 18px;
+    font-size: 13px;
+    line-height: 1.45;
+  }
+}
+
+/* Very small phones: 320–360px */
+@media (max-width: 360px) {
+
+  body {
+    padding: 8px;
+  }
+
+  .back-btn {
+    top: 8px;
+    left: 8px;
+    padding: 8px 10px;
+    font-size: 11px;
+  }
+
+  .auth-container {
+    margin-top: 52px;
+    padding: 24px 14px 20px;
+    border-radius: 18px;
+  }
+
+  .auth-icon {
+    font-size: 42px;
+  }
+
+  h1 {
+    font-size: 21px;
+  }
+
+  .subtitle {
+    font-size: 12px;
+  }
+
+  input[type="email"],
+  input[type="password"] {
+    min-height: 50px;
+    font-size: 16px;
+  }
+
+  .btn {
+    min-height: 50px;
+    font-size: 14px;
+  }
+}
 </style>
 </head>
 
@@ -672,3 +853,4 @@ setInterval(() => {
 
 </body>
 </html>
+
