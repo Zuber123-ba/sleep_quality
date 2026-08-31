@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>AI Sleep & Stress Intelligence Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --glass: rgba(255,255,255,0.14);
+  --border: rgba(255,255,255,0.25);
+  --accent1:#00c6ff;
+  --accent2:#f0f;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:
+    radial-gradient(circle at top,#1b2b45,#0a0f1e 60%);
+  color:#fff;
+  min-height:100vh;
+}
+.header{
+  padding:35px 20px;
+  text-align:center;
+}
+.header h1{
+  font-size:36px;
+  margin:0;
+  font-weight:700;
+}
+.header p{
+  opacity:.85;
+  margin-top:8px;
+}
+
+.container{
+  max-width:1200px;
+  margin:auto;
+  padding:20px;
+}
+
+/* GLASS CARD */
+.card{
+  background:var(--glass);
+  backdrop-filter:blur(18px);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:25px;
+  box-shadow:0 20px 50px rgba(0,0,0,.45);
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:22px;
+}
+
+/* INPUT */
+.input-card h3{
+  margin-top:0;
+}
+label{
+  font-size:13px;
+  opacity:.85;
+}
+input{
+  width:100%;
+  margin-top:6px;
+  margin-bottom:12px;
+  padding:12px;
+  border-radius:10px;
+  border:none;
+  background:rgba(255,255,255,.9);
+}
+button{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:30px;
+  font-weight:600;
+  background:linear-gradient(135deg,#ff9966,#ff5e62);
+  color:white;
+  cursor:pointer;
+  transition:.3s;
+}
+button:hover{
+  transform:translateY(-3px);
+  box-shadow:0 12px 30px rgba(0,0,0,.4);
+}
+
+/* SCORE CIRCLE */
+.circle{
+  width:140px;
+  height:140px;
+  margin:15px auto;
+  border-radius:50%;
+  background:conic-gradient(
+    var(--accent1) calc(var(--value)*1%),
+    rgba(255,255,255,.15) 0
+  );
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.circle span{
+  background:#0a0f1e;
+  width:100px;
+  height:100px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:26px;
+  font-weight:700;
+}
+
+/* METRIC CARD */
+.metric h4{
+  margin:0;
+  font-size:14px;
+  opacity:.85;
+}
+.metric p{
+  font-size:26px;
+  font-weight:700;
+  margin-top:10px;
+}
+
+/* STATUS COLORS */
+.good{color:#00ffcc}
+.warn{color:#ffd369}
+.bad{color:#ff7675}
+
+/* EXPLAIN */
+.explain{
+  font-size:14px;
+  line-height:1.6;
+  opacity:.9;
+}
+
+/* ACTION */
+.action{
+  margin-top:25px;
+  text-align:center;
+}
+.action p{
+  margin-top:12px;
+  font-size:15px;
+  opacity:.95;
+}
+
+/* MOBILE */
+@media(max-width:600px){
+  .header h1{font-size:28px}
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <h1>🧠 AI Sleep & Stress Intelligence</h1>
+  <p>Personalized • Predictive • Preventive Health Analytics</p>
+</div>
+
+<div class="container">
+
+<div class="grid">
+
+<!-- INPUT -->
+<div class="card input-card">
+  <h3>📝 Daily Sleep Input</h3>
+
+  <label>Sleep Hours</label>
+  <input type="number" id="sleepHours" value="6">
+
+  <label>Screen Time Before Bed (hrs)</label>
+  <input type="number" id="screenTime" value="4">
+
+  <label>Weekday Bedtime (24h)</label>
+  <input type="number" id="weekdayBed" value="23">
+
+  <label>Weekend Bedtime (24h)</label>
+  <input type="number" id="weekendBed" value="2">
+
+  <button onclick="analyze()">Analyze Health</button>
+</div>
+
+<!-- STRESS -->
+<div class="card">
+  <h3 style="text-align:center">🧠 Stress Index</h3>
+  <div class="circle" id="stressCircle" style="--value:0">
+    <span id="stressIndex">--</span>
+  </div>
+  <p style="text-align:center;opacity:.85">Auto-calculated (1–10)</p>
+</div>
+
+<!-- METRICS -->
+<div class="card metric">
+  <h4>🔥 Burnout Risk</h4>
+  <p id="burnout">--</p>
+</div>
+
+<div class="card metric">
+  <h4>⚡ Tomorrow’s Energy</h4>
+  <p id="energy">--</p>
+</div>
+
+<div class="card metric">
+  <h4>📉 Sleep Trend</h4>
+  <p id="habit">--</p>
+</div>
+
+<div class="card metric">
+  <h4>📵 Digital Detox</h4>
+  <p id="detoxText">-- /100</p>
+</div>
+
+<div class="card metric">
+  <h4>🌍 Social Jet Lag</h4>
+  <p id="jetlag">--</p>
+</div>
+
+<div class="card metric">
+  <h4>🔄 Recovery</h4>
+  <p id="recovery">--</p>
+</div>
+
+</div>
+
+<!-- EXPLANATION -->
+<div class="card explain" style="margin-top:25px">
+  <h3>🧠 How Stress Is Calculated</h3>
+  <p id="stressExplain">
+    Stress is estimated using sleep duration, screen exposure,
+    sleep timing irregularity, and recent sleep trend.
+    No manual stress input is required.
+  </p>
+</div>
+
+<div class="action">
+  <button style="max-width:320px" onclick="smartAction()">🧠 Smart Health Action</button>
+  <p id="actionText"></p>
+</div>
+
+</div>
+
+<script>
+let history = JSON.parse(localStorage.getItem("sleepHistory")) || [];
+
+function calculateStress(sleep, screen, weekday, weekend, history){
+  let stress = 1;
+  if(sleep < 6) stress += 3;
+  else if(sleep < 7) stress += 2;
+  if(screen >= 4) stress += 3;
+  else if(screen >= 2) stress += 2;
+  if(Math.abs(weekday - weekend) >= 3) stress += 2;
+  if(history.length >= 3){
+    const a=history.at(-3).sleep,b=history.at(-2).sleep,c=history.at(-1).sleep;
+    if(a>b && b>c) stress += 2;
+  }
+  return Math.min(stress,10);
+}
+
+function analyze(){
+  const sleep=+sleepHours.value;
+  const screen=+screenTime.value;
+  const weekday=+weekdayBed.value;
+  const weekend=+weekendBed.value;
+
+  history.push({sleep});
+  if(history.length>7) history.shift();
+  localStorage.setItem("sleepHistory",JSON.stringify(history));
+
+  const stress=calculateStress(sleep,screen,weekday,weekend,history);
+  stressIndex.innerText=stress;
+  stressCircle.style.setProperty("--value",stress*10);
+
+  burnout.innerText = stress>=7 && sleep<6 ? "HIGH ⚠️" : "LOW ✅";
+  burnout.className = stress>=7 ? "bad" : "good";
+
+  energy.innerText =
+    sleep>=7?"😊 Energetic":sleep>=6?"😐 Normal":"😴 Tired";
+
+  habit.innerText =
+    history.length>=3 &&
+    history.at(-3).sleep>history.at(-2).sleep &&
+    history.at(-2).sleep>history.at(-1).sleep
+    ?"Declining ⚠️":"Stable / Improving";
+
+  let detox=Math.max(0,100-screen*15);
+  detoxText.innerText=detox+" /100";
+
+  jetlag.innerText =
+    Math.abs(weekday-weekend)>=3?"Detected ⚠️":"Normal ✅";
+
+  recovery.innerText =
+    sleep>=8?"🟢 Good":sleep>=6?"🟡 Partial":"🔴 Poor";
+
+  stressExplain.innerText=
+    `Stress Index is derived from:
+     Sleep = ${sleep} hrs,
+     Screen = ${screen} hrs,
+     Bedtime gap = ${Math.abs(weekday-weekend)} hrs,
+     Recent sleep trend.`;
+}
+
+function smartAction(){
+  if(burnout.innerText.includes("HIGH"))
+    actionText.innerText="🛑 High stress detected. Reduce workload & prioritize sleep.";
+  else if(jetlag.innerText.includes("Detected"))
+    actionText.innerText="⏰ Fix weekend sleep timing to stabilize body clock.";
+  else
+    actionText.innerText="✅ You are doing well. Maintain this routine.";
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,4 @@
+sleep_duration,stress_level,caffeine_intake,screen_time,exercise_level,alcohol_intake,predicted_sleep_quality,probability,predicted_sleep_quality_label
+6.5,4,1,3,2,0,1,0.6,Good
+7.2,2,0,2,3,1,1,0.78,Good
+5.8,6,3,5,1,2,0,0.26,Bad

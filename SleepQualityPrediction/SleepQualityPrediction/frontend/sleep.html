@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>AI Sleep Intelligence – Smart Health Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --glass: rgba(255,255,255,.14);
+  --border: rgba(255,255,255,.25);
+  --good:#00ffcc;
+  --warn:#ffd369;
+  --bad:#ff7675;
+  --accent:#6dd5fa;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(180deg,#0f2027,#203a43,#2c5364);
+  color:#fff;
+  min-height:100vh;
+}
+.header{
+  padding:30px 20px;
+  text-align:center;
+}
+.header h1{margin:0;font-size:34px;font-weight:700}
+.header p{opacity:.85;margin-top:8px}
+
+.container{
+  max-width:1300px;
+  margin:auto;
+  padding:20px;
+}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:22px;
+}
+
+/* CARD */
+.card{
+  background:var(--glass);
+  backdrop-filter:blur(16px);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:22px;
+  box-shadow:0 18px 45px rgba(0,0,0,.45);
+}
+.card h3{margin-top:0;font-size:18px}
+
+/* INPUT */
+label{font-size:13px;opacity:.85}
+input,button{
+  width:100%;
+  padding:12px;
+  border-radius:10px;
+  border:none;
+  margin-top:8px;
+}
+input{background:rgba(255,255,255,.9)}
+button{
+  background:linear-gradient(135deg,#ff9966,#ff5e62);
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+  transition:.25s;
+}
+button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 25px rgba(0,0,0,.35);
+}
+
+/* STATUS COLORS */
+.good{color:var(--good)}
+.warn{color:var(--warn)}
+.bad{color:var(--bad)}
+
+/* SCORE CIRCLE */
+.circle{
+  width:130px;height:130px;
+  margin:10px auto;
+  border-radius:50%;
+  background:conic-gradient(var(--accent) calc(var(--value)*1%), rgba(255,255,255,.15) 0);
+  display:flex;align-items:center;justify-content:center;
+}
+.circle span{
+  width:90px;height:90px;border-radius:50%;
+  background:#0f2027;
+  display:flex;align-items:center;justify-content:center;
+  font-size:26px;font-weight:700;
+}
+
+/* LIST */
+.list{padding-left:18px}
+.list li{margin:6px 0;font-size:14px;opacity:.95}
+
+/* CHIP */
+.chip{
+  display:inline-block;
+  padding:6px 12px;
+  border-radius:20px;
+  font-size:12px;
+  background:rgba(255,255,255,.25);
+  margin-top:6px;
+}
+
+/* FOOT NOTE */
+.note{
+  font-size:13px;
+  opacity:.9;
+  line-height:1.6;
+}
+
+/* MOBILE */
+@media(max-width:600px){
+  .header h1{font-size:26px}
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <h1>🌙 AI Sleep Intelligence</h1>
+  <p>Simple • Smart • Personalized Sleep & Stress Guide</p>
+</div>
+
+<div class="container">
+
+<div class="grid">
+
+<!-- INPUT CARD -->
+<div class="card">
+  <h3>📝 Enter Your Daily Details</h3>
+
+  <label>Sleep Hours</label>
+  <input type="number" id="sleepHours" value="6">
+
+  <label>Stress Level (1–10)</label>
+  <input type="number" id="stressLevel" value="7">
+
+  <label>Screen Time Before Bed (hrs)</label>
+  <input type="number" id="screenTime" value="4">
+
+  <button onclick="analyze()">Analyze My Sleep</button>
+
+  <div class="chip">No device needed</div>
+</div>
+
+<!-- STRESS -->
+<div class="card" style="text-align:center">
+  <h3>🧠 Stress Index</h3>
+  <div class="circle" id="stressCircle" style="--value:0">
+    <span id="stressIndex">--</span>
+  </div>
+  <p id="stressText">Waiting for analysis</p>
+</div>
+
+<!-- METRICS -->
+<div class="card">
+  <h3>🔥 Burnout Risk</h3>
+  <p id="burnout">--</p>
+</div>
+
+<div class="card">
+  <h3>⚡ Tomorrow’s Energy</h3>
+  <p id="energy">--</p>
+</div>
+
+<div class="card">
+  <h3>⏰ Best Sleep Window</h3>
+  <p id="sleepWindow">--</p>
+</div>
+
+<div class="card">
+  <h3>😴 Sleep Debt</h3>
+  <p id="sleepDebt">-- hrs</p>
+</div>
+
+<div class="card">
+  <h3>🌙 Night Readiness</h3>
+  <p id="readiness">--%</p>
+</div>
+
+<div class="card">
+  <h3>🔁 Habit Score</h3>
+  <p id="habitScore">-- /100</p>
+</div>
+
+</div>
+
+<!-- ADV / DISADV -->
+<div class="grid" style="margin-top:24px">
+
+<div class="card">
+  <h3>✅ Why This System Is Useful</h3>
+  <ul class="list">
+    <li>Easy way to understand your sleep and stress</li>
+    <li>Gives suggestions based on your daily routine</li>
+    <li>No smartwatch or medical device required</li>
+    <li>Helps you avoid burnout early</li>
+    <li>Simple design, anyone can use it</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h3>⚠️ Limitations (Be Honest)</h3>
+  <ul class="list">
+    <li>Result depends on correct input from user</li>
+    <li>Not a medical or hospital diagnosis</li>
+    <li>Does not measure heart rate or brain signals</li>
+    <li>Works best when used daily</li>
+  </ul>
+</div>
+
+</div>
+
+<!-- DIET -->
+<div class="card" style="margin-top:24px">
+  <h3>🥗 Simple Diet Plan for Good Sleep</h3>
+  <div class="grid">
+    <div>
+      <h4 class="good">Evening (6–8 PM)</h4>
+      <ul class="list">
+        <li>Dal / Roti / Rice</li>
+        <li>Green vegetables</li>
+        <li>Warm water</li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="warn">Before Sleep (1 hour)</h4>
+      <ul class="list">
+        <li>Warm milk</li>
+        <li>Banana or 2 almonds</li>
+        <li>Light stretching</li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="bad">Avoid at Night</h4>
+      <ul class="list">
+        <li>Coffee / energy drinks</li>
+        <li>Heavy spicy food</li>
+        <li>Late-night mobile usage</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+let history = JSON.parse(localStorage.getItem("sleepHistory")) || [];
+
+function analyze(){
+  const sleep = +sleepHours.value;
+  const stress = +stressLevel.value;
+  const screen = +screenTime.value;
+
+  history.push(sleep);
+  if(history.length>7) history.shift();
+  localStorage.setItem("sleepHistory",JSON.stringify(history));
+
+  // Stress UI
+  stressIndex.innerText = stress;
+  stressCircle.style.setProperty("--value", stress*10);
+  stressText.innerText =
+    stress>=7?"High stress detected":"Stress level normal";
+
+  // Burnout
+  burnout.innerText = (sleep<6 && stress>6) ? "HIGH ⚠️" : "LOW ✅";
+  burnout.className = (sleep<6 && stress>6) ? "bad" : "good";
+
+  // Energy
+  energy.innerText =
+    sleep>=7?"😊 Energetic":sleep>=6?"😐 Normal":"😴 Tired";
+
+  // Sleep Window
+  let base=23;
+  if(stress>6) base-=0.5;
+  if(screen>3) base-=0.5;
+  sleepWindow.innerText = fmt(base)+" – "+fmt(base+0.75);
+
+  // Sleep Debt
+  const ideal=7;
+  sleepDebt.innerText = Math.max(0,ideal-sleep).toFixed(1)+" hrs";
+
+  // Readiness
+  readiness.innerText = Math.max(0,100-(stress*5+screen*10))+"%";
+
+  // Habit Score
+  habitScore.innerText =
+    Math.round(Math.max(0,100-(stress*3+screen*5)))+" /100";
+}
+
+function fmt(h){
+  let hr=Math.floor(h);
+  let m=(h%1)*60;
+  let ap=hr>=12?"PM":"AM";
+  hr=hr>12?hr-12:hr;
+  return `${hr}:${m?m:"00"} ${ap}`;
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,77 @@
+{
+  "imt@gmail.com": {
+    "firstName": "imtiyaz",
+    "lastName": "mujawar",
+    "email": "imt@gmail.com",
+    "age": 23,
+    "gender": "male",
+    "password": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+    "created_at": "2025-12-28T13:01:58.137112",
+    "last_login": "2025-12-28T21:34:09.123418"
+  },
+  "ak@gmail.com": {
+    "firstName": "akhil",
+    "lastName": "INAMADAR",
+    "email": "ak@gmail.com",
+    "age": 23,
+    "gender": "male",
+    "password": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+    "created_at": "2025-12-28T13:03:15.019628",
+    "last_login": "2025-12-28T13:03:19.763326"
+  },
+  "zuber@gmail.com": {
+    "firstName": "zuber",
+    "lastName": "bagwan",
+    "email": "zuber@gmail.com",
+    "age": 22,
+    "gender": "male",
+    "profession": "student",
+    "password": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+    "created_at": "2025-12-28T13:11:03.274121",
+    "last_login": "2025-12-28T13:44:31.956990"
+  },
+  "shivu@gmail.com": {
+    "firstName": "shivu",
+    "lastName": "sir",
+    "email": "shivu@gmail.com",
+    "age": 45,
+    "gender": "male",
+    "profession": "teacher-educator",
+    "password": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+    "created_at": "2025-12-28T13:28:57.671640",
+    "last_login": "2025-12-28T14:33:34.366322"
+  },
+  "imtiyazjm@gmail.com": {
+    "firstName": "imtiyaz",
+    "lastName": "mujawar",
+    "email": "imtiyazjm@gmail.com",
+    "age": 23,
+    "gender": "male",
+    "profession": "student",
+    "password": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+    "created_at": "2025-12-28T21:35:18.030619",
+    "last_login": "2025-12-28T21:35:24.024531"
+  },
+  "imtiyazjm395@gmail.com": {
+    "firstName": "imtiyaz",
+    "lastName": "mujawar",
+    "email": "imtiyazjm395@gmail.com",
+    "age": 23,
+    "gender": "male",
+    "profession": "student",
+    "password": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+    "created_at": "2026-01-01T09:10:54.410709",
+    "last_login": "2026-03-23T21:19:53.373168"
+  },
+  "zuber8@gmail.com": {
+    "firstName": "zuber",
+    "lastName": "bagawan",
+    "email": "zuber8@gmail.com",
+    "age": 22,
+    "gender": "male",
+    "profession": "student",
+    "password": "d835fe385cc0466109c04178a34558de61ad55fe8560c31ed1a329b38531fb07",
+    "created_at": "2026-07-03T11:22:38.363974",
+    "last_login": "2026-07-03T11:22:47.406483"
+  }
+}

@@ -1,0 +1,683 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Sleep Assessment - Sleep Quality Prediction</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box}
+
+body{
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(135deg,#14054e,#5f2c82,#49a09d);
+  min-height:100vh;
+  padding:20px 10px;
+  color:#fff;
+}
+
+.container{
+  max-width:900px;
+  margin:auto;
+  background:rgba(255,255,255,.15);
+  backdrop-filter:blur(18px);
+  border-radius:22px;
+  padding:40px;
+  box-shadow:0 30px 60px rgba(0,0,0,.35);
+}
+
+.header{
+  text-align:center;
+  margin-bottom:40px;
+}
+
+h1{
+  font-size:32px;
+  margin-bottom:10px;
+}
+
+.back-btn{
+  position:absolute;
+  top:20px;
+  left:20px;
+  background:rgba(255,255,255,.2);
+  border:none;
+  color:#fff;
+  padding:10px 15px;
+  border-radius:20px;
+  cursor:pointer;
+  text-decoration:none;
+  font-size:14px;
+}
+
+.back-btn:hover{
+  background:rgba(255,255,255,.3);
+}
+
+.profession-info{
+  background:rgba(255,255,255,.1);
+  padding:20px;
+  border-radius:15px;
+  margin-bottom:30px;
+  text-align:center;
+}
+
+.question-container{
+  background:rgba(255,255,255,.1);
+  border-radius:18px;
+  padding:30px;
+  margin-bottom:20px;
+}
+
+.question{
+  margin-bottom:30px;
+}
+
+.question-label{
+  font-size:16px;
+  font-weight:600;
+  margin-bottom:15px;
+  display:block;
+}
+
+.question-input{
+  width:100%;
+  padding:12px 16px;
+  border:none;
+  border-radius:10px;
+  background:rgba(255,255,255,.9);
+  color:#333;
+  font-size:14px;
+  transition:.3s;
+}
+
+.question-input:focus{
+  outline:none;
+  background:rgba(255,255,255,1);
+  box-shadow:0 0 0 3px rgba(255,255,255,.3);
+}
+
+select.question-input{
+  cursor:pointer;
+}
+
+.progress-bar{
+  width:100%;
+  height:8px;
+  background:rgba(255,255,255,.2);
+  border-radius:4px;
+  margin-bottom:30px;
+  overflow:hidden;
+}
+
+.progress-fill{
+  height:100%;
+  background:linear-gradient(135deg,#ff9966,#ff5e62);
+  border-radius:4px;
+  transition:.3s;
+  width:0%;
+}
+
+.navigation-buttons{
+  display:flex;
+  justify-content:space-between;
+  margin-top:30px;
+}
+
+.btn{
+  padding:14px 28px;
+  border:none;
+  border-radius:30px;
+  font-weight:600;
+  font-size:16px;
+  cursor:pointer;
+  transition:.3s;
+  text-decoration:none;
+  display:inline-block;
+}
+
+.btn-primary{
+  background:linear-gradient(135deg,#ff9966,#ff5e62);
+  color:#fff;
+}
+
+.btn-secondary{
+  background:rgba(255,255,255,.2);
+  color:#fff;
+}
+
+.btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 20px rgba(0,0,0,.3);
+}
+
+.btn:disabled{
+  opacity:.5;
+  cursor:not-allowed;
+  transform:none;
+}
+
+.loader{
+  width:40px;
+  height:40px;
+  border:4px solid rgba(255,255,255,.3);
+  border-top:4px solid #ffd369;
+  border-radius:50%;
+  animation:spin 1s linear infinite;
+  margin:20px auto;
+}
+
+@keyframes spin{100%{transform:rotate(360deg)}}
+
+.results-container{
+  display:none;
+}
+
+.score-display{
+  text-align:center;
+  margin-bottom:40px;
+}
+
+.score-circle{
+  width:150px;
+  height:150px;
+  border-radius:50%;
+  background:conic-gradient(from 0deg, #ff6b6b 0%, #ffd93d 25%, #6bcf7f 50%, #4ecdc4 75%, #45b7d1 100%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:20px auto;
+  position:relative;
+}
+
+.score-inner{
+  width:120px;
+  height:120px;
+  background:rgba(255,255,255,.9);
+  border-radius:50%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  color:#333;
+}
+
+.score-number{
+  font-size:36px;
+  font-weight:700;
+}
+
+.score-grade{
+  font-size:18px;
+  font-weight:600;
+  margin-top:5px;
+}
+
+.results-section{
+  background:rgba(255,255,255,.1);
+  border-radius:18px;
+  padding:25px;
+  margin-bottom:20px;
+}
+
+.results-section h3{
+  margin-bottom:15px;
+  font-size:20px;
+}
+
+.recommendation-list{
+  list-style:none;
+  padding:0;
+}
+
+.recommendation-list li{
+  background:rgba(255,255,255,.1);
+  padding:12px 16px;
+  border-radius:8px;
+  margin-bottom:10px;
+  position:relative;
+  padding-left:40px;
+}
+
+.recommendation-list li:before{
+  content:"✓";
+  position:absolute;
+  left:16px;
+  color:#6bcf7f;
+  font-weight:bold;
+}
+
+.risk-factors{
+  list-style:none;
+  padding:0;
+}
+
+.risk-factors li{
+  background:rgba(255,107,107,.2);
+  padding:12px 16px;
+  border-radius:8px;
+  margin-bottom:10px;
+  position:relative;
+  padding-left:40px;
+  border-left:4px solid #ff6b6b;
+}
+
+.risk-factors li:before{
+  content:"⚠";
+  position:absolute;
+  left:16px;
+  color:#ff6b6b;
+}
+
+.insights{
+  background:rgba(255,255,255,.05);
+  padding:20px;
+  border-radius:12px;
+  font-style:italic;
+  border-left:4px solid #4ecdc4;
+}
+
+.profession-advice{
+  background:linear-gradient(135deg,rgba(255,153,102,.2),rgba(255,94,98,.2));
+  border-radius:15px;
+  padding:25px;
+}
+
+.advice-tips{
+  list-style:none;
+  padding:0;
+}
+
+.advice-tips li{
+  padding:10px 0;
+  border-bottom:1px solid rgba(255,255,255,.1);
+}
+
+.advice-tips li:last-child{
+  border-bottom:none;
+}
+
+@media(max-width:600px){
+  .container{
+    padding:30px 20px;
+  }
+  
+  .navigation-buttons{
+    flex-direction:column;
+    gap:15px;
+  }
+  
+  .btn{
+    width:100%;
+    text-align:center;
+  }
+  
+  .back-btn{
+    position:static;
+    margin-bottom:20px;
+    display:inline-block;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <a href="dashboard" class="back-btn">← Back to Dashboard</a>
+  
+  <div class="header">
+    <h1>📝 Sleep Assessment</h1>
+    <p>Personalized questionnaire based on your profession</p>
+  </div>
+
+  <!-- Loading State -->
+  <div id="loadingQuestions" class="loader"></div>
+
+  <!-- Questionnaire Form -->
+  <div id="questionnaireForm" style="display:none;">
+    <div class="profession-info">
+      <h3>👤 <span id="professionTitle">Your Profession</span></h3>
+      <p>This questionnaire is tailored specifically for your profession to provide the most relevant sleep insights.</p>
+    </div>
+
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <form id="sleepForm">
+      <div id="questionsContainer"></div>
+      
+      <div class="navigation-buttons">
+        <button type="button" class="btn btn-secondary" id="prevBtn" onclick="changeQuestion(-1)" disabled>Previous</button>
+        <button type="button" class="btn btn-primary" id="nextBtn" onclick="changeQuestion(1)">Next</button>
+        <button type="submit" class="btn btn-primary" id="submitBtn" style="display:none;">Get My Sleep Analysis</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Results Display -->
+  <div id="resultsContainer" class="results-container">
+    <div class="header">
+      <h1>🎯 Your Sleep Analysis Results</h1>
+      <p>Based on your responses and profession</p>
+    </div>
+
+    <div class="score-display">
+      <div class="score-circle">
+        <div class="score-inner">
+          <div class="score-number" id="sleepScore">--</div>
+          <div class="score-grade" id="sleepGrade">--</div>
+        </div>
+      </div>
+      <h3>Your Sleep Quality Score</h3>
+    </div>
+
+    <div class="results-section">
+      <h3>💡 Personalized Recommendations</h3>
+      <ul class="recommendation-list" id="recommendationsList"></ul>
+    </div>
+
+    <div class="results-section" id="riskFactorsSection" style="display:none;">
+      <h3>⚠️ Risk Factors to Address</h3>
+      <ul class="risk-factors" id="riskFactorsList"></ul>
+    </div>
+
+    <div class="results-section">
+      <h3>🔍 Key Insights</h3>
+      <div class="insights" id="insightsContent"></div>
+    </div>
+
+    <div class="results-section">
+      <div class="profession-advice">
+        <h3 id="professionAdviceTitle">Professional Sleep Tips</h3>
+        <ul class="advice-tips" id="professionAdviceList"></ul>
+      </div>
+    </div>
+
+    <div class="navigation-buttons">
+      <button type="button" class="btn btn-secondary" onclick="retakeQuestionnaire()">Retake Assessment</button>
+      <a href="dashboard" class="btn btn-primary">Back to Dashboard</a>
+    </div>
+  </div>
+</div>
+
+<script>
+let questions = [];
+let currentQuestionIndex = 0;
+let responses = {};
+let userProfession = '';
+
+// Authentication check
+function checkAuth() {
+  const token = localStorage.getItem('userToken');
+  if (!token) {
+    window.location.href = 'welcome.html';
+    return false;
+  }
+  return true;
+}
+
+// Load questionnaire questions
+async function loadQuestionnaire() {
+  if (!checkAuth()) return;
+  
+  const token = localStorage.getItem('userToken');
+  
+  try {
+    const response = await fetch('http://127.0.0.1:5000/questionnaire/questions', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to load questionnaire');
+    }
+
+    const data = await response.json();
+    questions = data.questions;
+    userProfession = data.profession;
+    
+    // Update profession title
+    document.getElementById('professionTitle').textContent = formatProfession(userProfession);
+    
+    // Show questionnaire form
+    document.getElementById('loadingQuestions').style.display = 'none';
+    document.getElementById('questionnaireForm').style.display = 'block';
+    
+    // Display first question
+    displayQuestion(0);
+    updateProgress();
+    
+  } catch (error) {
+    console.error('Error loading questionnaire:', error);
+    alert('Failed to load questionnaire. Please try again.');
+  }
+}
+
+// Display current question
+function displayQuestion(index) {
+  const container = document.getElementById('questionsContainer');
+  const question = questions[index];
+  
+  let inputHtml = '';
+  
+  if (question.type === 'number') {
+    inputHtml = `<input type="number" class="question-input" id="q_${question.id}" 
+                 min="${question.min || 0}" max="${question.max || 100}" 
+                 value="${responses[question.id] || ''}" ${question.required ? 'required' : ''}>`;
+  } else if (question.type === 'select') {
+    inputHtml = `<select class="question-input" id="q_${question.id}" ${question.required ? 'required' : ''}>
+                  <option value="">Select an option...</option>`;
+    question.options.forEach(option => {
+      const selected = responses[question.id] == option.value ? 'selected' : '';
+      inputHtml += `<option value="${option.value}" ${selected}>${option.label}</option>`;
+    });
+    inputHtml += '</select>';
+  } else if (question.type === 'time') {
+    inputHtml = `<input type="time" class="question-input" id="q_${question.id}" 
+                 value="${responses[question.id] || ''}" ${question.required ? 'required' : ''}>`;
+  }
+  
+  container.innerHTML = `
+    <div class="question">
+      <label class="question-label">${index + 1}. ${question.question}</label>
+      ${inputHtml}
+    </div>
+  `;
+  
+  // Add event listener to save response
+  const input = document.getElementById(`q_${question.id}`);
+  input.addEventListener('change', () => {
+    responses[question.id] = input.value;
+  });
+}
+
+// Change question (next/previous)
+function changeQuestion(direction) {
+  // Save current response
+  const currentQuestion = questions[currentQuestionIndex];
+  const input = document.getElementById(`q_${currentQuestion.id}`);
+  if (input.value) {
+    responses[currentQuestion.id] = input.value;
+  }
+  
+  // Validate required field
+  if (direction > 0 && currentQuestion.required && !input.value) {
+    alert('Please answer this question before continuing.');
+    return;
+  }
+  
+  // Update question index
+  currentQuestionIndex += direction;
+  
+  // Update display
+  if (currentQuestionIndex >= 0 && currentQuestionIndex < questions.length) {
+    displayQuestion(currentQuestionIndex);
+    updateProgress();
+    updateNavigationButtons();
+  }
+}
+
+// Update progress bar
+function updateProgress() {
+  const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+  document.getElementById('progressFill').style.width = progress + '%';
+}
+
+// Update navigation buttons
+function updateNavigationButtons() {
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const submitBtn = document.getElementById('submitBtn');
+  
+  prevBtn.disabled = currentQuestionIndex === 0;
+  
+  if (currentQuestionIndex === questions.length - 1) {
+    nextBtn.style.display = 'none';
+    submitBtn.style.display = 'inline-block';
+  } else {
+    nextBtn.style.display = 'inline-block';
+    submitBtn.style.display = 'none';
+  }
+}
+
+// Submit questionnaire
+document.getElementById('sleepForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  
+  // Save final response
+  const currentQuestion = questions[currentQuestionIndex];
+  const input = document.getElementById(`q_${currentQuestion.id}`);
+  if (input.value) {
+    responses[currentQuestion.id] = input.value;
+  }
+  
+  // Validate all required fields
+  for (let question of questions) {
+    if (question.required && !responses[question.id]) {
+      alert(`Please answer: ${question.question}`);
+      return;
+    }
+  }
+  
+  const token = localStorage.getItem('userToken');
+  
+  try {
+    const response = await fetch('http://127.0.0.1:5000/questionnaire/submit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(responses)
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to submit questionnaire');
+    }
+
+    const results = await response.json();
+    displayResults(results);
+    
+  } catch (error) {
+    console.error('Error submitting questionnaire:', error);
+    alert('Failed to submit questionnaire. Please try again.');
+  }
+});
+
+// Display results
+function displayResults(results) {
+  // Hide questionnaire form
+  document.getElementById('questionnaireForm').style.display = 'none';
+  
+  // Show results
+  document.getElementById('resultsContainer').style.display = 'block';
+  
+  // Update score display
+  document.getElementById('sleepScore').textContent = Math.round(results.sleep_score);
+  document.getElementById('sleepGrade').textContent = results.sleep_grade;
+  
+  // Update recommendations
+  const recommendationsList = document.getElementById('recommendationsList');
+  recommendationsList.innerHTML = '';
+  results.recommendations.forEach(rec => {
+    const li = document.createElement('li');
+    li.textContent = rec;
+    recommendationsList.appendChild(li);
+  });
+  
+  // Update risk factors
+  if (results.risk_factors && results.risk_factors.length > 0) {
+    document.getElementById('riskFactorsSection').style.display = 'block';
+    const riskFactorsList = document.getElementById('riskFactorsList');
+    riskFactorsList.innerHTML = '';
+    results.risk_factors.forEach(risk => {
+      const li = document.createElement('li');
+      li.textContent = risk;
+      riskFactorsList.appendChild(li);
+    });
+  }
+  
+  // Update insights
+  const insightsContent = document.getElementById('insightsContent');
+  insightsContent.innerHTML = results.insights.map(insight => `<p>${insight}</p>`).join('');
+  
+  // Update profession advice
+  if (results.profession_specific_advice) {
+    document.getElementById('professionAdviceTitle').textContent = results.profession_specific_advice.title;
+    const adviceList = document.getElementById('professionAdviceList');
+    adviceList.innerHTML = '';
+    results.profession_specific_advice.tips.forEach(tip => {
+      const li = document.createElement('li');
+      li.textContent = tip;
+      adviceList.appendChild(li);
+    });
+  }
+}
+
+// Retake questionnaire
+function retakeQuestionnaire() {
+  currentQuestionIndex = 0;
+  responses = {};
+  document.getElementById('resultsContainer').style.display = 'none';
+  document.getElementById('questionnaireForm').style.display = 'block';
+  displayQuestion(0);
+  updateProgress();
+  updateNavigationButtons();
+}
+
+// Format profession for display
+function formatProfession(profession) {
+  const professionMap = {
+    'student': 'Student',
+    'healthcare-worker': 'Healthcare Worker',
+    'teacher-educator': 'Teacher/Educator',
+    'engineer-tech': 'Engineer/Tech Professional',
+    'business-finance': 'Business/Finance',
+    'retail-service': 'Retail/Service Industry',
+    'manufacturing': 'Manufacturing',
+    'transportation': 'Transportation',
+    'government': 'Government Employee',
+    'freelancer': 'Freelancer/Self-employed',
+    'retired': 'Retired',
+    'unemployed': 'Unemployed',
+    'shift-worker': 'Shift Worker',
+    'remote-worker': 'Remote Worker',
+    'other': 'Other'
+  };
+  
+  return professionMap[profession] || profession;
+}
+
+// Initialize questionnaire
+loadQuestionnaire();
+</script>
+
+</body>
+</html>

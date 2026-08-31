@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Sleep Quality Questionnaire</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box}
+
+body{
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(135deg,#667eea,#764ba2);
+  min-height:100vh;
+  padding:30px 10px;
+  transition:.3s;
+}
+
+body.light{
+  background:linear-gradient(135deg,#f5f7fa,#c3cfe2);
+  color:#333;
+}
+
+.container{
+  max-width:760px;
+  margin:auto;
+  background:rgba(255,255,255,.15);
+  backdrop-filter:blur(15px);
+  border-radius:18px;
+  padding:30px;
+  color:#fff;
+  box-shadow:0 20px 40px rgba(0,0,0,.25);
+  position:relative;
+  animation:fadeIn .8s ease;
+}
+
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:none}
+}
+
+.theme-toggle{
+  position:absolute;
+  top:18px;
+  right:18px;
+  background:rgba(255,255,255,.3);
+  border:none;
+  padding:8px 12px;
+  border-radius:50%;
+  font-size:18px;
+  cursor:pointer;
+}
+
+h1{text-align:center;margin-bottom:5px}
+p{text-align:center;opacity:.9}
+
+/* PROGRESS BAR */
+.progress{
+  height:8px;
+  background:rgba(255,255,255,.3);
+  border-radius:10px;
+  overflow:hidden;
+  margin:20px 0;
+}
+.progress-bar{
+  height:100%;
+  width:0%;
+  background:#ffd369;
+  transition:.3s;
+}
+
+/* INPUT CARD */
+.card{
+  background:rgba(255,255,255,.2);
+  padding:22px;
+  border-radius:14px;
+  margin-top:20px;
+}
+
+label{
+  margin-top:12px;
+  display:block;
+  font-size:14px;
+}
+
+input{
+  width:100%;
+  padding:12px;
+  border-radius:10px;
+  border:none;
+  margin-top:6px;
+  font-size:15px;
+}
+
+/* BUTTON */
+button{
+  width:100%;
+  padding:14px;
+  margin-top:20px;
+  background:linear-gradient(135deg,#ff9966,#ff5e62);
+  border:none;
+  border-radius:30px;
+  color:white;
+  font-size:17px;
+  cursor:pointer;
+  transition:.3s;
+}
+button:hover{transform:translateY(-3px)}
+
+/* RESULT */
+.result-card{
+  margin-top:20px;
+  text-align:center;
+  animation:fadeIn .6s ease;
+}
+
+.badge{
+  padding:8px 18px;
+  border-radius:20px;
+  font-size:18px;
+  display:inline-block;
+}
+.bad{background:#e53935}
+.good{background:#43a047}
+.best{background:#673ab7}
+
+.stars{font-size:24px;color:gold;margin-top:10px}
+.advice{
+  background:rgba(255,255,255,.25);
+  padding:12px;
+  border-radius:10px;
+  margin-top:10px;
+  font-size:14px;
+}
+
+/* CHART CARD */
+.chart-card{
+  background:rgba(255,255,255,.2);
+  border-radius:14px;
+  padding:20px;
+  margin-top:25px;
+}
+
+/* TABLE */
+table{
+  width:100%;
+  margin-top:20px;
+  border-collapse:collapse;
+  background:#fff;
+  color:#333;
+  border-radius:10px;
+  overflow:hidden;
+}
+th,td{
+  padding:10px;
+  border-bottom:1px solid #ddd;
+  text-align:center;
+}
+th{background:#764ba2;color:white}
+
+@media(max-width:600px){
+  h1{font-size:22px}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<button class="theme-toggle" id="themeToggle">🌙</button>
+
+<h1>🛌 Sleep Quality Questionnaire</h1>
+<p>AI-powered sleep health analysis</p>
+
+<div class="progress">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+
+<div class="card">
+  <label>Sleep duration (hours)</label>
+  <input type="number" id="sleep_duration">
+
+  <label>Stress level (1–10)</label>
+  <input type="number" id="stress_level">
+
+  <label>Caffeine intake (cups/day)</label>
+  <input type="number" id="caffeine_intake">
+
+  <label>Screen time before bed (hours)</label>
+  <input type="number" id="screen_time">
+
+  <label>Exercise level (1–10)</label>
+  <input type="number" id="exercise_level">
+
+  <label>Alcohol intake (1–10)</label>
+  <input type="number" id="alcohol_intake">
+
+  <button onclick="predictSleep()">Predict Sleep Quality</button>
+</div>
+
+<div id="result" class="result-card"></div>
+
+<h2 style="margin-top:30px">📊 Sleep Progress</h2>
+<div class="chart-card">
+  <canvas id="historyChart"></canvas>
+</div>
+
+<table>
+<thead>
+<tr><th>Date</th><th>Quality</th><th>Score</th></tr>
+</thead>
+<tbody id="historyTable"></tbody>
+</table>
+</div>
+
+<script>
+let chart;
+
+function predictSleep() {
+
+  const resultEl = document.getElementById("result");
+
+  const data = {
+    sleep_duration: Number(document.getElementById("sleep_duration").value),
+    stress_level: Number(document.getElementById("stress_level").value),
+    caffeine: Number(document.getElementById("caffeine_intake").value),
+    screen_time: Number(document.getElementById("screen_time").value)
+  };
+
+  // 🔴 Validation
+  if (
+    !data.sleep_duration ||
+    !data.stress_level ||
+    !data.caffeine ||
+    !data.screen_time
+  ) {
+    resultEl.innerHTML = "<p style='color:#ffd369'>Please fill all fields</p>";
+    return;
+  }
+
+  let score = 0;
+
+  // Sleep duration
+  if (data.sleep_duration >= 7 && data.sleep_duration <= 9) score += 2;
+  else if (data.sleep_duration >= 5) score += 1;
+
+  // Stress
+  if (data.stress_level <= 3) score += 2;
+  else if (data.stress_level <= 6) score += 1;
+
+  // Caffeine
+  if (data.caffeine <= 2) score += 2;
+  else if (data.caffeine <= 4) score += 1;
+
+  // Screen time
+  if (data.screen_time <= 1) score += 2;
+  else if (data.screen_time <= 3) score += 1;
+
+  // Final label
+  let label = "Bad";
+  if (score >= 7) label = "Best";
+  else if (score >= 4) label = "Good";
+
+  const advice = {
+    Bad: "❌ Improve sleep: reduce stress, caffeine & screen time.",
+    Good: "✅ Good sleep! Maintain routine & consistency.",
+    Best: "🌟 Excellent sleep habits! Keep it up."
+  };
+
+  const stars = {
+    Bad: "⭐",
+    Good: "⭐⭐⭐",
+    Best: "⭐⭐⭐⭐⭐"
+  };
+
+  // ✅ SHOW RESULT
+  resultEl.innerHTML = `
+    <div class="badge ${label.toLowerCase()}">${label}</div>
+    <div class="stars">${stars[label]}</div>
+    <div class="advice">${advice[label]}</div>
+  `;
+
+  saveHistory(label);
+  renderHistory();
+}
+
+/* ---------------- HISTORY ---------------- */
+
+function saveHistory(label) {
+  const scoreMap = { Bad: 30, Good: 65, Best: 90 };
+  const history = JSON.parse(localStorage.getItem("sleepHistory")) || [];
+
+  history.push({
+    date: new Date().toLocaleDateString(),
+    label,
+    score: scoreMap[label]
+  });
+
+  localStorage.setItem("sleepHistory", JSON.stringify(history));
+}
+
+function renderHistory() {
+  const history = JSON.parse(localStorage.getItem("sleepHistory")) || [];
+  historyTable.innerHTML = "";
+
+  const labels = [];
+  const scores = [];
+
+  history.forEach(h => {
+    labels.push(h.date);
+    scores.push(h.score);
+    historyTable.innerHTML += `
+      <tr>
+        <td>${h.date}</td>
+        <td>${h.label}</td>
+        <td>${h.score}</td>
+      </tr>`;
+  });
+
+  drawChart(labels, scores);
+}
+
+function drawChart(labels, scores) {
+  const ctx = historyChart.getContext("2d");
+  if(chart) chart.destroy();
+
+  chart = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels,
+      datasets: [{
+        label: "Sleep Score",
+        data: scores,
+        borderColor: "#ffd369",
+        backgroundColor: "rgba(255,211,105,0.25)",
+        fill: true,
+        tension: 0.4
+      }]
+    },
+    options: {
+      scales: { y: { min: 0, max: 100 } }
+    }
+  });
+}
+
+window.onload = renderHistory;
+</script>
+
+
+<!-- 🔽 KEEP YOUR EXISTING SCRIPT BELOW (prediction, chart, history) -->
+<!-- PASTE YOUR PREVIOUS JS LOGIC HERE WITHOUT CHANGE -->
+
+</body>
+</html>
