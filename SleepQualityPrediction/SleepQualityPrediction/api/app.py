@@ -6,13 +6,12 @@ import os
 from functools import wraps
 
 # ✅ Correct package imports
-from face_analysis import analyze_face, analyze_face_image
-from predictor import sleep_need_from_face
-from recommendation import get_recommendations
-from report_generator import generate_pdf
-from auth import register_user, login_user, verify_token, logout_user, get_user_profile
-from profession_questionnaire import get_profession_questions, analyze_sleep_responses
-
+from api.face_analysis import analyze_face, analyze_face_image
+from api.predictor import sleep_need_from_face
+from api.recommendation import get_recommendations
+from api.report_generator import generate_pdf
+from api.auth import register_user, login_user, verify_token, logout_user, get_user_profile
+from api.profession_questionnaire import get_profession_questions, analyze_sleep_responses
 # ---------------------------------------------------
 # APP CONFIG
 # ---------------------------------------------------
